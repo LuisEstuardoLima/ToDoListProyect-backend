@@ -44,18 +44,31 @@ http://localhost:3000
 📁 Estructura del proyecto (Express Generator)
 
 ├── bin/
+
 │   └── www                # Archivo de inicio del servidor
+
 ├── public/                # Archivos estáticos (si aplica)
+
 ├── routes/                # Definición de rutas
+
 │   ├── goals.js
+
 |   ├── index.js
+
 |   ├── tasks.js
+
 │   └── users.js
+
 ├── views/                 # Vistas (si usas templates, ej: Jade/Pug)
+
 ├── app.js                 # Configuración principal de Express
+
 ├── package-lock.json
+
 ├── package.json
+
 └── README.md
+
 
 📡 Endpoints principales (ejemplo)
 
