@@ -65,3 +65,5 @@ http://localhost:3000
 ➔ /removeGoal - DELETE
 ➔ /addTask - POST
 ➔ /addGoal - POST
+
+Estos Endpoints se pueden verificar usando Postman.
