@@ -53,17 +53,23 @@ http://localhost:3000
 │   └── users.js
 ├── views/                 # Vistas (si usas templates, ej: Jade/Pug)
 ├── app.js                 # Configuración principal de Express
-├──package-lock.json
+├── package-lock.json
 ├── package.json
 └── README.md
 
 📡 Endpoints principales (ejemplo)
 
 ➔ /getTasks - GET
+
 ➔ /getGoals - GET
+
 ➔ /removeTask - DELETE
+
 ➔ /removeGoal - DELETE
+
 ➔ /addTask - POST
+
 ➔ /addGoal - POST
+
 
 Estos Endpoints se pueden verificar usando Postman.
