@@ -9,25 +9,33 @@ let goals = [
 
 
 router.get('/getGoals', (req, res) => {
-  res.json(goals);
+  res.status(200).json(goals);
 });
 
 router.post('/addGoal', (req, res) => {
   const { name, description, duedate } = req.body;
-  const newGoal = {
-     id_: Math.floor(Math.random() * 1000) + 1, 
-     name, 
-     description, 
-     duedate 
+  if(name && description && duedate) {
+    const newGoal = {
+      id_: Math.floor(Math.random() * 1000) + 1,
+      name,
+      description,
+      duedate
     };
-  goals.push(newGoal);
-  res.json(newGoal);
+    goals.push(newGoal);
+    res.status(200).json(newGoal);
+  } else {
+    res.status(400).json({ error: 'Faltan campos requeridos' });
+  }
 });
 
 router.delete('/removeGoal/:id', (req, res) => {
+  if(req.params && req.params.id && !isNaN(req.params.id)) {
   const goalId = parseInt(req.params.id);
   goals = goals.filter(goal => goal.id_ !== goalId);
   res.json({ message: `Objetivo con id ${goalId} eliminado` });
+  } else {
+    res.status(400).json({ error: 'Falta el id del objetivo a eliminar' });
+  }
 });
 
 module.exports = router;
