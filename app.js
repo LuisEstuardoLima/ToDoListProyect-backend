@@ -4,12 +4,35 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var connectDB = require('./config/db');
+var initMySQL = require('./config/iniMysql');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var taskRouter = require('./routes/tasks');
 var goalRouter = require('./routes/goals');
 
 var app = express();
+let mysqlDB = null;
+
+async function initializeDatabase() {
+  try {
+    if (process.env.DATABASE === 'MONGODB') {
+      await connectDB();
+      console.log('MongoDB conectado exitosamente');
+    }
+
+  if (process.env.DATABASE === 'MYSQL') {
+    mysqlDB = await initMySQL();
+    console.log('MySQL conectado y tablas verificadas ');
+  }
+}catch (error) {
+  console.error('Error al conectar a la base de datos:', error);
+}
+}
+
+initializeDatabase();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
   if (req.headers.authorization && req.headers.authorization === '123456') {
+    req.db = mysqlDB; // Agrega la conexión a MySQL al objeto req para que esté disponible en las rutas
     next();
   } else {
     res.status(401).json({ error: 'Unauthorized' });
@@ -49,5 +73,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`💾 Base de datos: ${process.env.DATABASE || 'MONGODB'}`);
+  });
+}
 
 module.exports = app;
