@@ -1,4 +1,4 @@
-# ✨ Nombre del Proyecto - Backend
+# ✨ ToDoList - Backend
 
 Backend desarrollado con **Node.js** y **Express**, generado a partir de `express-generator`.  
 Provee API REST para el To Do List.
